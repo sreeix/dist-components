@@ -2,9 +2,11 @@
 -export([run/0, loop/1, printer_loop/0, print_end/1]).
 
 loop(VC) ->
+    Queue = [],
     receive
 	{printer_request, Process, _} ->
 	    io:format("Got printer requested ~p: ~n ", [Process]),
+	    Process ! {printer_request_ack, self()},
 	    loop(VC);
 	{printer_release, From, _} ->
 	    io:format("Releasing the printer ~p ~n", [From]),
@@ -35,5 +37,11 @@ print(PrintRequester, Processes, Content) ->
 run() ->
     Processes = [spawn(consensus, loop,[vc:new()]), spawn(consensus, loop,[vc:new()]),spawn(consensus, loop,[vc:new()])],
     register(printer, spawn(consensus, printer_loop, [])),
-    PrintRequester = lists:nth(round(random:uniform() * length(Processes)) + 1, Processes),
-    print(PrintRequester, Processes, "foobarbaz").
+    do_run(Processes).
+
+do_run(Processes) ->
+    PrintRequester = lists:nth(random:uniform(length(Processes)), Processes),
+    print(PrintRequester, Processes, "foobarbaz"),
+    io:format("Wating for 5 seconds~n"),
+    timer:sleep(5000),
+    do_run(Processes).

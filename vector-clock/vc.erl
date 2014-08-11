@@ -19,12 +19,11 @@ increment(Process, Clock) ->
 	    dict:store(Process, 0, Clock)
     end.
 
-%% is_concurrent(Process1, Process)
+is_concurrent(Clock1, Clock2) ->
+    true.
 
 merge(Clock1, Clock2) ->
     dict:merge(Clock1, Clock2).
-
-%%  Tests
 
 is_before(Clock1, Clock2) ->
     false.
@@ -32,8 +31,11 @@ is_before(Clock1, Clock2) ->
 prune(Clock) ->
     Clock.
 
-is_concurrent(Clock1, Clock2) ->
-    false.
 increment_test() ->
     C = vc:new(),
-    C1 = vc:increment(10, C).
+    C1 = vc:new(),
+    Pid = foo,
+    C2 = vc:increment(Pid, C),
+    true = vc:is_concurrent(C, C1),
+    true = vc:is_concurrent(C2, C1),
+    false = vc:is_concurrent(C, C2).
