@@ -1,5 +1,5 @@
 -module(vc).
--export([new/0,increment/2, is_concurrent/3, merge/2, prune/1, is_before/3]).
+-export([new/0,increment/2, is_concurrent/2, merge/2, prune/1, is_before/2]).
 %% A clock is associated with each event. This clock is used to figure out weather the event is before or after the event.
 %% For some events it is not possible to figure out if they are after/before, and in such cases they are concurrent.
 %% new -> creates a new clock.
@@ -26,6 +26,14 @@ merge(Clock1, Clock2) ->
 
 %%  Tests
 
+is_before(Clock1, Clock2) ->
+    false.
+
+prune(Clock) ->
+    Clock.
+
+is_concurrent(Clock1, Clock2) ->
+    false.
 increment_test() ->
     C = vc:new(),
-    C1 = vc:increment(10, C),
+    C1 = vc:increment(10, C).
