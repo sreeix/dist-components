@@ -27,8 +27,16 @@ is_concurrent([{Process1, Count1} | _Tail1], Clock2) ->
     [{Process2, Count2} | _Tail2] = Clock2,
     (Process1 =:= Process2 andalso Count1 =:= Count2)  or is_concurrent_diff_process(Process1, Count1, Clock2).
 
+%% We use the simple process number to do the total ordering. This means that the process that is more actuve will generally win. The other alternative would be as Lamport suggests to use process priority. implementation commented out after this function.
+
 is_before([{_, Count1}| _], [{_, Count2} | _]) ->
     Count1 < Count2.
+
+
+%% is_before(Clock1, Clock2) ->
+%%     [{P1, C1} | _Tail] = Clock1,
+%%     [{P2, C2} | _Tail] = Clock2,
+%%    (C1< C2 andalso P1 =:= P2) or (is_concurrent_diff_process(P1, C1, Clock2) andalso P1 <P2).
 
 
 is_concurrent_diff_process(_Process1, _Count1, []) ->
