@@ -1,7 +1,7 @@
 -module(lamport).
 -export([new/1, increment/1, set_counter/3, is_concurrent/2, is_before/2]).
 -include_lib("eunit/include/eunit.hrl").
-
+%% Lamports clock impementation, with the small quick(lamport clocks only define total ordering, and not answer questions like is before)
 new(Process) ->
     [{Process, 0}].
 
