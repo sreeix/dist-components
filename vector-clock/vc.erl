@@ -8,7 +8,7 @@
 
 %% Implementations Notes:
 %% Stolen mostly from fidge's paper.
-%%  Clock is a dict of processid and the count. And incrementing the
+%%  Clock is a dict of processid and the count. This takes care of the dynamic processes.
 -include_lib("eunit/include/eunit.hrl").
 
 new() ->
