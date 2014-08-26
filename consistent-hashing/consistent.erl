@@ -19,11 +19,7 @@ to_string(V) ->
     end.
 
 sha_to_number(ToSha) ->
-
-    Val = crypto:bytes_to_integer(crypto:hash(sha, ToSha)) rem ?TOPOFCLOCK,
-    io:format("Val: ~p :~p ~n", [ToSha, Val]),
-    Val.
-
+   crypto:bytes_to_integer(crypto:hash(sha, ToSha)) rem ?TOPOFCLOCK.
 
 add_node({Id, _}, {NumRepeats, Partitions}) ->
     Val = to_string(Id),
