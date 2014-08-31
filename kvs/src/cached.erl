@@ -1,6 +1,6 @@
 -module(cached).
 -export([put/2, get/1]).
--export([start/0, loop/1]).
+-export([start/0, loop/1, init/0]).
 
 
 
