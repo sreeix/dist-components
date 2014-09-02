@@ -1,6 +1,5 @@
 -module(sorts).
--export([selection/1, insertion/1]).
--compile(export_all).
+-export([selection/1, insertion/1, shuffle/1, merge/1, quick/1]).
 -include_lib("eunit/include/eunit.hrl").
 
 
