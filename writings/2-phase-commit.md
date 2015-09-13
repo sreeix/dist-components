@@ -17,17 +17,19 @@ It's a simple state machine where the Coordinator sends a Ready to commit messag
 * If there are no failures each TM will send a ready message to the coordinator. And Coordinator will ask all TM's to commit if all TM's are ready.
 * If even one TM responds with a failure(or timeouts) the Coordinator will issue an abort transaction to the TM's.
 
-States at coordinator
+### States at coordinator
 * Working - Client issues a commit and Coordinator issues a ready to all replicas
 * Prepared - Receives responses from TMs or timesout
 * Commited - If all TM respond with success
 * Aborted - If even one TM responds with a failure(or timeout)
 
 
+
 ###Problems
 * It is a synchronous/blocking protocl. All replicas need to respond and transaction cannot be commited till all the replicas respond(or timeout)
 * Failure of a single node can abort the protocol
 * Coordinator failure is a SPOF. and leads to strange anomolies.(though there are ways around it)
+
 
 
 ### Alternatives.
